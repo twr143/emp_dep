@@ -25,4 +25,6 @@ with grouping as (select action, question_id, count(uid) as cnt from survey_log 
     select g.question_id,g.cnt as cnt_a,g2.cnt as cnt_s from grouping g join grouping g2 on g.question_id=g2.question_id and g.action='answer' and g2.action ='skip'
 )
 select question_id, 1.0 as rate from grouping_all_answ union select question_id,0.0 from grouping_none_answ
-union select question_id, cnt_a::real/(cnt_a::real+cnt_s::real) from grouping_part_answ
+union select question_id, cnt_a::real/(cnt_a::real+cnt_s::real) from grouping_part_answ;
+
+select * from survey_log
