@@ -16,4 +16,13 @@ insert into Vote values(5,5);
 
 
 with voteCnt as (select CandidateId as cid, count(CandidateId) as cnt from vote group by cid order by cnt desc limit 1)
-select c.name,v.cnt from candidate c join voteCnt v on c.id=v.cid
+select c.name,v.cnt from candidate c join voteCnt v on c.id=v.cid;
+
+select Name
+from candidate
+where id = (
+select CandidateId
+from Vote
+group by CandidateId
+order by count(*) desc
+limit 1)
